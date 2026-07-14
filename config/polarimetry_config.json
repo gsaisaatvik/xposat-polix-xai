@@ -1,0 +1,54 @@
+{
+  "module_name": "POLIX Physical Polarimetry Diagnostic Module",
+  "module_version": "1.0",
+  "data_release_context": {
+    "total_observations_analyzed": 25,
+    "blank_sky_observations": 15,
+    "source_observations": 10,
+    "acceptable_blank_sky_fits_used": 13
+  },
+  "blank_sky_vector_baseline": {
+    "q_fraction_mean": 0.009092004643934008,
+    "u_fraction_mean": -0.006478172023714323,
+    "q_fraction_std": 0.0048569056645379576,
+    "u_fraction_std": 0.004019023757818825
+  },
+  "blank_sky_raw_modulation_baseline": {
+    "mean_percent": 1.147820338848039,
+    "std_percent": 0.565959672908476,
+    "median_percent": 1.4928346850503225,
+    "minimum_percent": 0.2941272549082783,
+    "maximum_percent": 1.7789269082760475,
+    "circular_mean_phase_deg": 161.65948039705165
+  },
+  "pd_proxy_settings": {
+    "mu100_scenarios": [
+      0.4,
+      0.42,
+      0.44
+    ],
+    "central_mu100": 0.42,
+    "mu100_status": "Sensitivity assumptions only. These are not observation-specific flight-calibrated values.",
+    "raw_pd_proxy_formula": "raw_modulation_fraction / assumed_mu100",
+    "background_relative_pd_proxy_formula": "background_relative_modulation_fraction / assumed_mu100"
+  },
+  "angle_settings": {
+    "reported_value": "fitted_modulation_phase_deg",
+    "official_pa_available": false,
+    "status": "The fitted modulation phase is reported. It is not labelled as official polarization angle because the release did not provide a verified phase-to-PA convention or offset."
+  },
+  "confidence_thresholds": {
+    "moderate_vector_distance": 2.0,
+    "strong_vector_distance": 3.0
+  },
+  "scientific_limits": {
+    "final_calibrated_pd_claimed": false,
+    "final_official_pa_claimed": false,
+    "background_subtraction_status": "Empirical mean blank-sky Q/U vector comparison only; not the official POLIX background-subtraction pipeline.",
+    "required_warning": "PD values shown by the application are sensitivity proxies and must not be interpreted as final calibrated astrophysical polarization measurements."
+  },
+  "reference_output": {
+    "source_rows_in_proxy_table": 10,
+    "proxy_table_filename": "path2_pd_proxy_sensitivity_table.csv"
+  }
+}

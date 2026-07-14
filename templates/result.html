@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>POLIX XAI Result</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 35px;
+            background: #f7f7f7;
+            color: #222;
+        }
+
+        .summary-card,
+        .result-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .anomaly {
+            color: #b00020;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: #067d34;
+            font-weight: bold;
+        }
+
+        .polarimetry-box {
+            background: #f4f8ff;
+            border-left: 5px solid #2857a4;
+            padding: 18px;
+            margin-top: 22px;
+            margin-bottom: 22px;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fff4d6;
+            border-left: 5px solid #d58b00;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .error-box {
+            background: #ffeaea;
+            border-left: 5px solid #b00020;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+
+        .status-good {
+            color: #067d34;
+            font-weight: bold;
+        }
+
+        .status-caution {
+            color: #b36b00;
+            font-weight: bold;
+        }
+
+        .status-poor {
+            color: #b00020;
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        a {
+            text-decoration: none;
+            color: #222;
+        }
+
+        img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+
+        .small-note {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .method-box {
+            background: #f2f2f2;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .download-button {
+            display: inline-block;
+            background: #2857a4;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .download-button:hover {
+            background: #193d78;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>POLIX XAI Results</h1>
+
+    <p><a href="/">← Test another file</a></p>
+
+    <div class="summary-card">
+        <h2>Run Summary</h2>
+
+        <p>
+            Upload mode: <b>{{ upload_mode }}</b><br>
+            Observations processed: <b>{{ row_count }}</b><br>
+            Normal observations: <b>{{ normal_count }}</b><br>
+            Anomaly observations: <b>{{ anomaly_count }}</b>
+        </p>
+
+        {% if download_url %}
+        <p>
+            <a class="download-button" href="{{ download_url }}">
+                Download Combined Results CSV
+            </a>
+        </p>
+        {% endif %}
+
+        <div class="method-box">
+            <b>Explainable AI strategy:</b><br>
+            This system uses unsupervised model-specific explainability.
+            It does not use SHAP. The XAI score is computed from PCA
+            separation contribution, KMeans centroid-distance contribution,
+            Isolation Forest occlusion contribution, and standardized
+            feature abnormality.
+        </div>
+
+        {% if upload_mode == "raw" %}
+        <div class="method-box">
+            <b>Physical polarimetry strategy:</b><br>
+            The system fits the POLIX WeightedRoll modulation curve,
+            measures raw modulation and fitted modulation phase, compares
+            the Q/U modulation vector with an empirical blank-sky baseline,
+            and calculates PD sensitivity proxies under assumed modulation
+            factors.
+        </div>
+        {% endif %}
+
+        <h3>Batch Visualizations</h3>
+
+        {% if summary_plots.anomaly_score_ranking %}
+        <h4>Anomaly Score Ranking</h4>
+        <img src="{{ summary_plots.anomaly_score_ranking }}">
+        {% endif %}
+
+        {% if summary_plots.pca_observation_space %}
+        <h4>PCA Observation Space</h4>
+        <img src="{{ summary_plots.pca_observation_space }}">
+        {% endif %}
+    </div>
+
+    {% for r in results %}
+
+    <div class="result-card">
+
+        <h2>{{ r.observation_id }}</h2>
+
+        <p>
+            <b>Target:</b> {{ r.target_name }}<br>
+            <b>Proposal ID:</b> {{ r.proposal_id }}<br>
+            <b>Observation role:</b>
+            {% if r.observation_role == "source" %}
+                <span class="normal">Source</span>
+            {% elif r.observation_role == "blank_sky" %}
+                <span class="status-caution">Blank Sky / Background Reference</span>
+            {% else %}
+                Unknown
+            {% endif %}
+        </p>
+
+        <p>
+            Prediction:
+
+            {% if r.prediction == "Anomaly" %}
+            <span class="anomaly">{{ r.prediction }}</span>
+            {% else %}
+            <span class="normal">{{ r.prediction }}</span>
+            {% endif %}
+        </p>
+
+        <p>
+            <b>Anomaly Score:</b>
+            {{ "%.4f"|format(r.anomaly_score) }}
+            <br>
+
+            <b>PCA:</b>
+            PC1={{ "%.3f"|format(r.pca_pc1) }},
+            PC2={{ "%.3f"|format(r.pca_pc2) }}
+            <br>
+
+            <b>KMeans Cluster:</b>
+            {{ r.kmeans_cluster }}
+        </p>
+
+        {% if r.polarimetry %}
+
+        {% if r.polarimetry.polarimetry_error %}
+
+        <div class="error-box">
+            <b>Polarimetry processing error:</b><br>
+            {{ r.polarimetry.polarimetry_error }}
+        </div>
+
+        {% else %}
+
+        <div class="polarimetry-box">
+
+            <h3>Physical Polarimetry Diagnostic</h3>
+
+            <p>
+                <b>WeightedRoll file:</b>
+                {{ r.polarimetry.weightedroll_filename }}
+                <br>
+
+                <b>WeightedRoll bins used:</b>
+                {{ r.polarimetry.weightedroll_bins_used }}
+            </p>
+
+            <h4>Modulation-Curve Fit</h4>
+
+            <table>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Raw observed modulation</td>
+                    <td>
+                        {{ "%.4f"|format(r.polarimetry.raw_modulation_percent) }}%
+                        ±
+                        {{ "%.4f"|format(r.polarimetry.raw_modulation_percent_error) }}%
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Fitted modulation phase</td>
+                    <td>
+                        {{ "%.3f"|format(r.polarimetry.modulation_phase_deg) }}°
+                        ±
+                        {{ "%.3f"|format(r.polarimetry.modulation_phase_error_deg) }}°
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Amplitude SNR</td>
+                    <td>
+                        {{ "%.3f"|format(r.polarimetry.amplitude_snr) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Reduced chi-square</td>
+                    <td>
+                        {{ "%.3f"|format(r.polarimetry.reduced_chi2) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Fit quality</td>
+                    <td>
+                        {% if r.polarimetry.fit_quality == "acceptable" %}
+                        <span class="status-good">
+                            {{ r.polarimetry.fit_quality }}
+                        </span>
+
+                        {% elif r.polarimetry.fit_quality == "caution" %}
+                        <span class="status-caution">
+                            {{ r.polarimetry.fit_quality }}
+                        </span>
+
+                        {% else %}
+                        <span class="status-poor">
+                            {{ r.polarimetry.fit_quality }}
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+
+            <h4>Blank-Sky-Relative Analysis</h4>
+
+            <table>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Background-relative modulation</td>
+                    <td>
+                        {{
+                        "%.4f"|format(
+                        r.polarimetry.background_relative_modulation_percent
+                        )
+                        }}%
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Background-relative phase</td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry.background_relative_phase_deg
+                        )
+                        }}°
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Raw modulation vs blank-sky z-score</td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry.source_vs_blank_z
+                        )
+                        }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Raw modulation status</td>
+                    <td>
+                        {{
+                        r.polarimetry.source_modulation_vs_blank_status
+                        }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Q/U vector distance</td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry.background_relative_vector_distance
+                        )
+                        }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Q/U vector status</td>
+                    <td>
+                        {{
+                        r.polarimetry.background_relative_vector_status
+                        }}
+                    </td>
+                </tr>
+            </table>
+
+            {% if r.observation_role == "blank_sky" %}
+            <h4>Blank-Sky Modulation-Equivalent Diagnostic</h4>
+
+            <p class="small-note">
+                These values show the modulation-equivalent percentages obtained
+                under assumed μ100 scenarios. They are background/instrument
+                diagnostics and must not be interpreted as source polarization degree.
+            </p>
+            {% else %}
+            <h4>Polarization-Degree Sensitivity Proxy</h4>
+            {% endif %}
+
+            <table>
+                <tr>
+                    <th>Assumed μ100</th>
+                    {% if r.observation_role == "blank_sky" %}
+                    <th>Raw modulation-equivalent value</th>
+                    <th>Baseline-relative modulation-equivalent value</th>
+                    {% else %}
+                    <th>Raw PD proxy</th>
+                    <th>Background-relative PD proxy</th>
+                    {% endif %}
+                </tr>
+
+                <tr>
+                    <td>0.40</td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry
+                        .pd_proxy_sensitivity
+                        .mu40
+                        .raw_pd_proxy_percent
+                        )
+                        }}%
+                    </td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry
+                        .pd_proxy_sensitivity
+                        .mu40
+                        .background_relative_pd_proxy_percent
+                        )
+                        }}%
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><b>0.42 — selected scenario</b></td>
+                    <td>
+                        <b>
+                            {{
+                            "%.3f"|format(
+                            r.polarimetry
+                            .pd_proxy_sensitivity
+                            .mu42
+                            .raw_pd_proxy_percent
+                            )
+                            }}%
+                        </b>
+                    </td>
+                    <td>
+                        <b>
+                            {{
+                            "%.3f"|format(
+                            r.polarimetry
+                            .pd_proxy_sensitivity
+                            .mu42
+                            .background_relative_pd_proxy_percent
+                            )
+                            }}%
+                        </b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>0.44</td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry
+                        .pd_proxy_sensitivity
+                        .mu44
+                        .raw_pd_proxy_percent
+                        )
+                        }}%
+                    </td>
+                    <td>
+                        {{
+                        "%.3f"|format(
+                        r.polarimetry
+                        .pd_proxy_sensitivity
+                        .mu44
+                        .background_relative_pd_proxy_percent
+                        )
+                        }}%
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                <b>Reported angle:</b>
+                {{ "%.3f"|format(r.polarimetry.reported_angle_value_deg) }}°
+                <br>
+
+                <b>Angle type:</b>
+                {{ r.polarimetry.reported_angle_type }}
+                <br>
+
+                <b>Polarimetry confidence:</b>
+                {{ r.polarimetry.polarimetry_confidence_status }}
+                <br>
+
+                <b>Final calibrated PD claimed:</b>
+                {{ r.polarimetry.final_calibrated_pd_claimed }}
+                <br>
+
+                <b>Official PA claimed:</b>
+                {{ r.polarimetry.official_pa_claimed }}
+            </p>
+
+            <div class="warning-box">
+                <b>Scientific limitation:</b><br>
+                {{ r.polarimetry.scientific_warning }}
+                <br><br>
+                {{ r.polarimetry.pa_conversion_status }}
+            </div>
+
+        </div>
+
+        {% endif %}
+        {% endif %}
+
+        <div class="method-box">
+            <b>Combined Scientific Interpretation:</b><br>
+            {{ r.scientific_interpretation }}
+        </div>
+
+        <h3>Top Explainable AI Features</h3>
+
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Feature</th>
+                <th>Product Family</th>
+                <th>XAI Score</th>
+                <th>Z-score</th>
+                <th>PCA Contribution</th>
+                <th>KMeans Contribution</th>
+                <th>Isolation Contribution</th>
+            </tr>
+
+            {% for x in r.top_xai_features %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ x.feature }}</td>
+                <td>{{ x.product_family }}</td>
+                <td>{{ "%.3f"|format(x.xai_score) }}</td>
+                <td>{{ "%.3f"|format(x.z_score) }}</td>
+                <td>{{ "%.3f"|format(x.pca_contribution) }}</td>
+                <td>{{ "%.3f"|format(x.kmeans_contribution) }}</td>
+                <td>{{ "%.3f"|format(x.isolation_contribution) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Observation-Specific XAI Visualization</h3>
+
+        {% if r.xai_bar_url %}
+        <h4>Top XAI Feature Scores</h4>
+        <img src="{{ r.xai_bar_url }}">
+        {% endif %}
+
+        {% if r.xai_component_url %}
+        <h4>XAI Contribution Components</h4>
+        <img src="{{ r.xai_component_url }}">
+        {% endif %}
+
+        <p>
+            <b>Generated Explanation:</b>
+            {{ r.explanation_sentence }}
+        </p>
+
+        <p class="small-note">
+            The table and plots are the main explainable AI output.
+            The sentence above is generated from the top-ranked XAI
+            features for easier human interpretation.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</body>
+
+</html>

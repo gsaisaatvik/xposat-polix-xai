@@ -1,0 +1,40 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Runtime uploads and generated plots
+uploads/*
+!uploads/.gitkeep
+
+static/plots/*
+!static/plots/.gitkeep
+
+# Raw and compressed science data
+*.fits
+*.fit
+*.pha
+*.lc
+*.zip
+*.tgz
+*.tar.gz
+
+# Temporary test folders
+crab_test/
+multi_obs_test/
+blank_sky_test/
+all_25_test/
+
+# Environment and OS files
+.env
+.DS_Store
+Thumbs.db
+
+# IDE configuration
+.vscode/
+.idea/

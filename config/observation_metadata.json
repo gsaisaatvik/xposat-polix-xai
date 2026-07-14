@@ -1,0 +1,102 @@
+{
+  "T24_0007": {
+    "target_name": "Cyg X-1",
+    "observation_role": "source"
+  },
+  "T24_0002": {
+    "target_name": "Crab",
+    "observation_role": "source"
+  },
+  "T24_0001": {
+    "target_name": "Crab",
+    "observation_role": "source"
+  },
+  "P01_0005": {
+    "target_name": "Crab",
+    "observation_role": "source"
+  },
+  "G01_0006": {
+    "target_name": "Sco X-1",
+    "observation_role": "source"
+  },
+  "G01_0005": {
+    "target_name": "4U 1700-37",
+    "observation_role": "source"
+  },
+  "G01_0004": {
+    "target_name": "GX 301-2",
+    "observation_role": "source"
+  },
+  "G01_0003": {
+    "target_name": "Her X-1",
+    "observation_role": "source"
+  },
+  "G01_0002": {
+    "target_name": "Cen X-3",
+    "observation_role": "source"
+  },
+  "C24_0026": {
+    "target_name": "Cas-A SNR",
+    "observation_role": "source"
+  },
+  "C24_0024": {
+    "target_name": "Blank Sky-7",
+    "observation_role": "blank_sky"
+  },
+  "C24_0023": {
+    "target_name": "Blank Sky-6",
+    "observation_role": "blank_sky"
+  },
+  "C24_0022": {
+    "target_name": "Blank Sky-11",
+    "observation_role": "blank_sky"
+  },
+  "C24_0021": {
+    "target_name": "Blank Sky-8",
+    "observation_role": "blank_sky"
+  },
+  "C24_0020": {
+    "target_name": "Blank Sky-15",
+    "observation_role": "blank_sky"
+  },
+  "C24_0019": {
+    "target_name": "Blank Sky-14",
+    "observation_role": "blank_sky"
+  },
+  "C24_0018": {
+    "target_name": "Blank Sky-13",
+    "observation_role": "blank_sky"
+  },
+  "C24_0015": {
+    "target_name": "Blank Sky-10",
+    "observation_role": "blank_sky"
+  },
+  "C24_0014": {
+    "target_name": "Blank Sky-9",
+    "observation_role": "blank_sky"
+  },
+  "C24_0010": {
+    "target_name": "Blank Sky-5",
+    "observation_role": "blank_sky"
+  },
+  "C24_0009": {
+    "target_name": "Blank Sky-4",
+    "observation_role": "blank_sky"
+  },
+  "C24_0008": {
+    "target_name": "Blank Sky-2",
+    "observation_role": "blank_sky"
+  },
+  "C24_0007": {
+    "target_name": "Blank Sky-3",
+    "observation_role": "blank_sky"
+  },
+  "C24_0002": {
+    "target_name": "Blank Sky-1",
+    "observation_role": "blank_sky"
+  },
+  "C24_0001": {
+    "target_name": "Blank Sky-2",
+    "observation_role": "blank_sky"
+  }
+}

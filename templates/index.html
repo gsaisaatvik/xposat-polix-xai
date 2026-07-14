@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>POLIX XAI Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f7f7f7;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .note {
+            color: #555;
+            font-size: 15px;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #222;
+            color: white;
+            font-size: 15px;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>POLIX XAI Analyzer</h1>
+        <p class="note">
+            Explainable unsupervised AI framework for POLIX Level-2 XPoSat observations.
+        </p>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+
+            <div class="section">
+                <h3>Choose Upload Type</h3>
+
+                <label>
+                    <input type="radio" name="upload_mode" value="csv" checked>
+                    Case 2: Upload Matrix C feature CSV
+                </label>
+                <br><br>
+
+                <label>
+                    <input type="radio" name="upload_mode" value="raw">
+                    Case 1: Upload raw POLIX Level-2 archive (.tgz / .tar.gz / .zip)
+                </label>
+            </div>
+
+            <div class="section">
+                <h3>Upload File</h3>
+                <input type="file" name="file" required>
+            </div>
+
+            <div class="section">
+                <button type="submit">Run Model + XAI</button>
+            </div>
+
+        </form>
+
+        <div class="section">
+            <h3>Expected Files</h3>
+            <p>
+                For CSV testing, upload:
+                <br>
+                <code>polix_matrix_v2_C_primary_plus_supporting.csv</code>
+            </p>
+
+            <p>
+                For raw testing, upload a compressed POLIX Level-2 observation containing:
+                <br>
+                <code>Polix_l2_lcpha/</code> and <code>Polix_l2_polarization/</code>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
