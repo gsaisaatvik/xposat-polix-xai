@@ -1,0 +1,27 @@
+observation_id,proposal_id,observation_role,target_name,matrix_c_present,fixed_prediction,fixed_anomaly_score,seed_times_flagged,seed_frequency,matrix_A_flag,matrix_B_flag,matrix_C_flag,cross_tier_flag_pattern,raw_modulation_percent,reduced_chi2,fit_quality,q_frac,u_frac,source_blank_scalar_rule,controlling_sources
+X01_PLX_C24_0001_000000,C24_0001,blank_sky,Blank Sky-2,True,Normal,0.428314732218,0,0.00,False,False,False,none,0.618492,0.926450,acceptable,0.004919150,-0.003749029,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0002_000000,C24_0002,blank_sky,Blank Sky-1,True,Normal,0.418393500632,0,0.00,False,False,False,none,0.676138,0.900029,acceptable,0.005345050,-0.004140857,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0007_000000,C24_0007,blank_sky,Blank Sky-3,True,Normal,0.449228585544,0,0.00,False,False,False,none,1.747587,0.769197,acceptable,0.010393855,-0.014048975,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0008_000000,C24_0008,blank_sky,Blank Sky-2,True,Normal,0.471520200937,0,0.00,False,False,False,none,0.294127,0.681650,acceptable,0.001300777,-0.002638004,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0009_000000,C24_0009,blank_sky,Blank Sky-4,True,Normal,0.419663570299,0,0.00,False,False,False,none,1.577061,0.731785,acceptable,0.014429158,-0.006364855,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0010_000000,C24_0010,blank_sky,Blank Sky-5,True,Anomaly,0.517611306034,29,0.29,False,True,True,B/C,1.518535,0.713428,acceptable,0.010924222,-0.010547812,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0014_000000,C24_0014,blank_sky,Blank Sky-9,True,Normal,0.397313780071,0,0.00,False,False,False,none,0.564220,0.772184,acceptable,0.005012581,-0.002590072,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0015_000000,C24_0015,blank_sky,Blank Sky-10,True,Normal,0.404007813701,0,0.00,False,False,False,none,1.616549,0.775584,acceptable,0.014614189,-0.006910039,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0018_000000,C24_0018,blank_sky,Blank Sky-13,True,Anomaly,0.615963874890,100,1.00,True,True,True,A/B/C,0.853951,2.565811,caution,0.006302697,-0.005761873,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0019_000000,C24_0019,blank_sky,Blank Sky-14,True,Normal,0.416549087568,0,0.00,False,False,False,none,1.492835,1.481186,acceptable,0.009410492,-0.011588709,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0020_000000,C24_0020,blank_sky,Blank Sky-15,True,Normal,0.513010159257,68,0.68,True,True,False,A/B,1.736549,0.740010,acceptable,0.016987773,-0.003602220,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0021_000000,C24_0021,blank_sky,Blank Sky-8,True,Normal,0.473825979187,0,0.00,False,False,False,none,1.778927,0.730708,acceptable,0.013787203,-0.011241492,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0022_000000,C24_0022,blank_sky,Blank Sky-11,True,Normal,0.448762863579,0,0.00,False,False,False,none,0.726564,0.829697,acceptable,0.006016922,-0.004072618,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0023_000000,C24_0023,blank_sky,Blank Sky-6,True,Normal,0.396280113281,0,0.00,False,False,False,none,1.174320,6.920304,poor_simple_sinusoid_fit,0.011697776,0.001031913,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0024_000000,C24_0024,blank_sky,Blank Sky-7,True,Normal,0.402804959055,0,0.00,False,False,False,none,0.574080,1.067890,acceptable,0.005054690,-0.002721554,N-A,S014|S020|S022|S029|S031|S034
+X01_PLX_C24_0026_000000,C24_0026,source,Cas-A SNR,True,Normal,0.441527670954,0,0.00,False,False,False,none,0.692664,1.702988,acceptable,0.005039072,-0.004752482,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_G01_0002_000000,G01_0002,source,Cen X-3,True,Normal,0.429895835304,0,0.00,False,False,False,none,0.928623,1.897200,acceptable,0.008646915,-0.003385980,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_G01_0003_000000,G01_0003,source,Her X-1,True,Anomaly,0.572308197266,100,1.00,False,False,True,C,0.596632,57.433514,poor_simple_sinusoid_fit,-0.002110996,-0.005580382,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_G01_0004_000000,G01_0004,source,GX 301-2,True,Normal,0.449645891589,0,0.00,False,False,False,none,0.722337,4.374479,caution,0.003014879,-0.006564115,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_G01_0005_000000,G01_0005,source,4U 1700-37,True,Normal,0.410608198652,0,0.00,False,False,False,none,1.080606,1.229127,acceptable,0.006941174,-0.008281970,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_G01_0006_000000,G01_0006,source,Sco X-1,True,Anomaly,0.593516132746,100,1.00,True,True,True,A/B/C,1.139578,2.030761,caution,0.009972337,-0.005515107,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_P01_0005_000000,P01_0005,source,Crab,True,Normal,0.504655627700,3,0.03,True,False,False,A,1.697346,1.062540,acceptable,0.014185432,-0.009320506,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_T24_0001_000000,T24_0001,source,Crab,True,Normal,0.432359395742,0,0.00,False,False,False,none,1.395515,0.814632,acceptable,0.013458012,-0.003691637,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_T24_0002_000000,T24_0002,source,Crab,True,Normal,0.478229433637,0,0.00,False,False,False,none,1.200778,1.367146,acceptable,0.008493148,-0.008488413,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+X01_PLX_T24_0007_000000,T24_0007,source,Cyg X-1,True,Normal,0.478218103640,0,0.00,False,False,False,none,0.681147,5.408023,poor_simple_sinusoid_fit,0.003577335,-0.005796448,within_declared_empirical_rule,S014|S020|S022|S029|S031|S034
+

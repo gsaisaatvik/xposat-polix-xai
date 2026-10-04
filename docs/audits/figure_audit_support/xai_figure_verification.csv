@@ -1,0 +1,4 @@
+observation_id,feature,product_family,raw_feature_value,standardized_value_from_saved_scaler,saved_deployed_z_score,saved_project_local_ranking_score
+X01_PLX_G01_0006_000000,t1A_energy_channel_entropy,Tier1A EnergyRes,11.993394700426515,-2.8556618973058145,-2.8556618973058145,1.8139679863052869
+X01_PLX_G01_0006_000000,t1A_energy_weighted_mean_channel,Tier1A EnergyRes,1648.330999701843,-3.4325052501646716,-3.432505250164672,2.207368658481
+X01_PLX_G01_0006_000000,t1A_energy_peak_channel,Tier1A EnergyRes,465.0,4.894105811784397,4.894105811784397,2.4544990315347768

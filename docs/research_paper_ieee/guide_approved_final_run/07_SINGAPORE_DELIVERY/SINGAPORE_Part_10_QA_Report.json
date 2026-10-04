@@ -1,0 +1,140 @@
+{
+  "overall": "PASS",
+  "guide_ready": true,
+  "submission_ready": false,
+  "latex_compile_executed": false,
+  "latex_compile_reason": "No TeX engine installed in the local QA environment.",
+  "visual_pages_inspected": 13,
+  "checks": [
+    {
+      "check": "Exact title",
+      "status": "PASS",
+      "detail": "An Explainable AI Framework for Analysis of X-Ray Polarimetry Data from XPoSat"
+    },
+    {
+      "check": "Abstract length",
+      "status": "PASS",
+      "detail": "193 words"
+    },
+    {
+      "check": "Word tables",
+      "status": "PASS",
+      "detail": "4 tables"
+    },
+    {
+      "check": "Word inline figures",
+      "status": "PASS",
+      "detail": "4 figures"
+    },
+    {
+      "check": "Native Word equations",
+      "status": "PASS",
+      "detail": "8 equations"
+    },
+    {
+      "check": "No equation placeholders",
+      "status": "PASS",
+      "detail": "no placeholders"
+    },
+    {
+      "check": "Embedded Word media",
+      "status": "PASS",
+      "detail": "4 media files"
+    },
+    {
+      "check": "Figure alternative text",
+      "status": "PASS",
+      "detail": "4/4"
+    },
+    {
+      "check": "Document accessibility audit",
+      "status": "PASS",
+      "detail": "counts={'high': 0, 'medium': 0, 'low': 0}"
+    },
+    {
+      "check": "Repeating table headers",
+      "status": "PASS",
+      "detail": "4/4"
+    },
+    {
+      "check": "Rendered page set",
+      "status": "PASS",
+      "detail": "13 pages"
+    },
+    {
+      "check": "Required frozen results",
+      "status": "PASS",
+      "detail": "missing=[]"
+    },
+    {
+      "check": "Result-stage distinctions",
+      "status": "PASS",
+      "detail": "missing=[]"
+    },
+    {
+      "check": "No handbook mention/citation",
+      "status": "PASS",
+      "detail": "Markdown, LaTeX, and BibTeX"
+    },
+    {
+      "check": "Forbidden-language lint",
+      "status": "PASS",
+      "detail": "found=[]"
+    },
+    {
+      "check": "Portable LaTeX paths",
+      "status": "PASS",
+      "detail": "absolute_paths=[]"
+    },
+    {
+      "check": "LaTeX brace balance",
+      "status": "PASS",
+      "detail": "static scan"
+    },
+    {
+      "check": "LaTeX environment balance",
+      "status": "PASS",
+      "detail": "begin=24, end=24"
+    },
+    {
+      "check": "Reference count",
+      "status": "PASS",
+      "detail": "17 BibTeX entries"
+    },
+    {
+      "check": "Citation resolution",
+      "status": "PASS",
+      "detail": "missing=[], uncited=[]"
+    },
+    {
+      "check": "LaTeX figure assets",
+      "status": "PASS",
+      "detail": "refs=4, missing=[]"
+    },
+    {
+      "check": "Packaged figure variants",
+      "status": "PASS",
+      "detail": "4 PDF + 4 PNG"
+    },
+    {
+      "check": "Protected hashes",
+      "status": "PASS",
+      "detail": "43 checked; changed=0, missing=0"
+    },
+    {
+      "check": "Frozen Phase-5 hashes",
+      "status": "PASS",
+      "detail": "5 checked; changed=0"
+    },
+    {
+      "check": "All-observation traceability",
+      "status": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "check": "No final manuscript PDF",
+      "status": "PASS",
+      "detail": "found=[]"
+    }
+  ]
+}

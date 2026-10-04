@@ -1,0 +1,41 @@
+{
+  "paragraph_count": 162,
+  "table_count": 10,
+  "image_count": 4,
+  "equation_count": 13,
+  "tracked_insertions": 0,
+  "tracked_deletions": 0,
+  "comments_part": false,
+  "sectPr_count": 5,
+  "package_files": 22,
+  "core_properties": {
+    "title": "Paper Title (use style: paper title)",
+    "creator": "IEEE",
+    "lastModifiedBy": "shruti nalla",
+    "revision": "2",
+    "created": "2026-08-07T21:51:00Z",
+    "modified": "2026-08-07T21:51:00Z"
+  },
+  "media": [
+    {
+      "name": "word/media/image1.png",
+      "bytes": 250522,
+      "output": "D:\\polix_xai_webapp\\research_paper_ieee\\guide_approved_final_run\\final_friend_review\\media\\image1.png"
+    },
+    {
+      "name": "word/media/image2.png",
+      "bytes": 62585,
+      "output": "D:\\polix_xai_webapp\\research_paper_ieee\\guide_approved_final_run\\final_friend_review\\media\\image2.png"
+    },
+    {
+      "name": "word/media/image3.png",
+      "bytes": 310430,
+      "output": "D:\\polix_xai_webapp\\research_paper_ieee\\guide_approved_final_run\\final_friend_review\\media\\image3.png"
+    },
+    {
+      "name": "word/media/image4.png",
+      "bytes": 127934,
+      "output": "D:\\polix_xai_webapp\\research_paper_ieee\\guide_approved_final_run\\final_friend_review\\media\\image4.png"
+    }
+  ]
+}

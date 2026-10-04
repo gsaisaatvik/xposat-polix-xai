@@ -5,15 +5,24 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Jupyter
-.ipynb_checkpoints/
+# Node & Frontend
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+frontend/node_modules/
+frontend/dist/
 
-# Runtime uploads and generated plots
+# Uploads & Runtime output
 uploads/*
 !uploads/.gitkeep
-
-static/plots/*
-!static/plots/.gitkeep
+runtime/uploads/*
+runtime/generated/*
+backend/runtime/uploads/*
+backend/runtime/generated/*
+!backend/runtime/uploads/.gitkeep
+!backend/runtime/generated/.gitkeep
+*.log
 
 # Raw and compressed science data
 *.fits
@@ -29,8 +38,11 @@ crab_test/
 multi_obs_test/
 blank_sky_test/
 all_25_test/
+tmp/
+.codex_tmp/
+web_v2/
 
-# Environment and OS files
+# Environment and OS
 .env
 .DS_Store
 Thumbs.db
