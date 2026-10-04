@@ -1,132 +1,245 @@
-# XPoSat POLIX Explainable AI Research Portal (v2.0)
+# An Explainable AI Framework for Analysis of X-Ray Polarimetry Data from XPoSat (v2.0)
 
-An Explainable AI (XAI) and unsupervised anomaly detection framework for X-Ray polarimetry observations from the **POLIX** instrument onboard ISRO's **XPoSat** (X-ray Polarimeter Satellite) mission.
+A modern full-stack research portal and scientific analysis system for explainable analysis of XPoSat POLIX Level-2 observations. The system couples unsupervised machine learning, model-specific explainable AI (XAI), and physical polarimetry diagnostics with an interactive Vue 3 scientific dashboard.
 
 ---
 
-## 🏛️ System Architecture
+## 🛰️ Project Overview
 
-The repository is organized into distinct, clean workspaces:
+This project provides an end-to-end scientific pipeline and modern portal that:
+
+- **Extracts engineered Matrix-C features** (15 physical and spectral dimensions) from POLIX Level-2 FITS observations.
+- **Screens unusual observations** using an unsupervised machine learning consensus (PCA + K-Means + Isolation Forest).
+- **Explains model decisions** via an observation-specific XAI framework directly tied to the deployed model components (no SHAP).
+- **Fits POLIX WeightedRoll modulation curves** using weighted least-squares second-harmonic modeling.
+- **Compares observations against empirical blank-sky baselines** for background-relative modulation diagnostics.
+- **Reports polarization-degree (PD) sensitivity proxies** under assumed modulation factors with strict scientific boundaries.
+- **Provides an interactive research interface** featuring a guided mission story, interactive formula boards, dynamic SVG instrumentation diagrams, and an upload/inspection workspace.
+- **Exports combined ML + XAI + Polarimetry results** as downloadable CSV packages with generated diagnostic plots.
+
+---
+
+## ⚡ Key Features
+
+### Machine Learning & XAI
+- **Principal Component Analysis (PCA)**: Dimensionality reduction and projection of observation feature vectors.
+- **K-Means Clustering**: Neighborhood structuring and centroid distance tracking across observations.
+- **Isolation Forest**: Unsupervised anomaly screening with fixed contamination baselines.
+- **Model-Specific Explainable AI (No SHAP)**: Combines PCA separation, K-Means centroid distance, Isolation Forest occlusion, and standardized Z-scores into normalized local feature attributions.
+
+### Physical Polarimetry Diagnostics
+- **WeightedRoll Modulation Curve Fitting**: Second-harmonic sinusoidal regression ($y(\phi) = C + Q\cos(2\phi) + U\sin(2\phi)$).
+- **Raw Modulation & Phase Estimation**: Diagnostic modulation percentage and phase angles.
+- **Blank-Sky Baseline Comparison**: Evaluates observations against empirical non-source scatter.
+- **Q/U Modulation Vector Diagnostics**: Orthogonal harmonic component analysis.
+- **PD Sensitivity Proxies**: Evaluates candidate sensitivity across assumed modulation factors ($\mu$).
+
+### Modern Web Portal (v2.0)
+- **Interactive Vue 3 Frontend**: Single-page application built with TypeScript, Vite, and Pinia state management.
+- **Interactive Scientific Charts**: Responsive, accessible data visualizations powered by Apache ECharts.
+- **Study Archive Explorer**: Instant inspection of the 25 validated study observations and 100-seed stability metrics.
+- **Live Analysis Studio**: Supports raw Level-2 archives (`.zip`, `.tgz`, `.tar.gz`) and precomputed Matrix-C CSV tables.
+- **Evidence Lab**: Step-by-step formula boards, calculation cards, and scientific provenance tracking.
+
+---
+
+## 📁 Repository Structure
 
 ```text
-polix_xai_webapp/
-├── frontend/                   # Modern Vue 3 + TypeScript + Vite portal
+xposat-polix-xai/
+│
+├── frontend/                   # Vue 3 + TypeScript + Vite web portal
 │   ├── src/
-│   │   ├── components/         # Interactive diagrams, charts, and shell components
+│   │   ├── components/         # Interactive diagrams, ECharts, and UI modules
 │   │   ├── views/              # Mission, Method, Data, Learn, Archive, Analyze views
-│   │   ├── stores/             # Pinia analysis and UI state
+│   │   ├── stores/             # Pinia analysis and UI state management
 │   │   └── services/           # Backend API integration client
 │   ├── index.html
 │   ├── package.json
-│   └── vite.config.ts          # Dev server proxying /api and /generated to port 5001
+│   └── vite.config.ts          # Vite configuration with API reverse proxy
 │
-├── backend/                    # Python Flask scientific backend & REST API
-│   ├── app.py                  # Standalone REST API server (port 5001)
-│   ├── feature_extractor.py    # Extracts 15 Matrix-C features from Level-2 FITS files
+├── backend/                    # Python scientific backend & REST API
+│   ├── app.py                  # Standalone Flask REST API server (port 5001)
+│   ├── feature_extractor.py    # Matrix-C 15-feature extraction from Level-2 FITS files
 │   ├── model_service.py        # Unsupervised XAI (Isolation Forest + PCA + KMeans)
 │   ├── polarization_service.py # WeightedRoll modulation curve analysis
-│   ├── visualization_service.py# Generates anomaly ranking, PCA, and per-obs XAI plots
-│   ├── result_exporter.py      # Exports combined results to CSV
+│   ├── visualization_service.py# Batch and per-observation diagnostic plot generation
+│   ├── result_exporter.py      # Combines ML, XAI, and polarimetry into CSV reports
 │   ├── model/                  # Frozen trained Matrix-C model artifact (.pkl)
-│   ├── config/                 # Metadata and polarimetry configuration JSONs
-│   ├── data/                   # Seed stability and deployed reproduction benchmarks
+│   ├── config/                 # Observation metadata and polarimetry configurations
+│   ├── data/                   # Reproduction benchmarks and seed stability datasets
 │   ├── runtime/                # Transient session uploads and generated plot storage
-│   └── requirements.txt        # Backend dependencies
+│   └── requirements.txt        # Python backend dependencies
 │
-├── docs/                       # Research documentation, audits, and literature (local)
-│   ├── guides/                 # Implementation plan, content map, run & test guide
-│   ├── research_paper_ieee/    # Research paper draft, figures, and supplementary scripts
-│   ├── reviews_and_presentations/ # PS1 Review presentations and reference reports
-│   ├── audits/                 # Contradiction, figure, and scientific audits
-│   ├── source_material/        # Official POLIX handbooks and payload references
-│   └── tools/                  # Asset preparation scripts
-│
-├── README.md                   # Project overview & documentation
-└── .gitignore                  # Git ignore rules for node, python, & large archives
+├── .gitignore                  # Git ignore rules for node, python, & large archives
+└── README.md                   # Project documentation
 ```
 
 ---
 
-## 🚀 Quickstart
+## 🚀 Getting Started
 
 ### Prerequisites
 - Python 3.10+
 - Node.js 18+ and `pnpm` (or `npm`)
 
-### 1. Start Scientific Backend API
-```powershell
+### 1. Clone the Repository
+```bash
+git clone -b version2 https://github.com/gsaisaatvik/xposat-polix-xai.git
+cd xposat-polix-xai
+```
+
+### 2. Start the Backend API
+In your terminal:
+```bash
 cd backend
+python -m venv venv
+
+# Windows
+.\venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+
 pip install -r requirements.txt
 python app.py
 ```
-The API server starts at `http://127.0.0.1:5001` (Health check: `http://127.0.0.1:5001/api/health`).
+The scientific API service will start at `http://127.0.0.1:5001` (Health check: `http://127.0.0.1:5001/api/health`).
 
-### 2. Start Frontend Application
-In a separate terminal:
-```powershell
+### 3. Start the Frontend Application
+In a separate terminal window:
+```bash
 cd frontend
-pnpm install
-pnpm run dev
+pnpm install   # or npm install
+pnpm run dev   # or npm run dev
 ```
-Open your browser at `http://127.0.0.1:5173/`.
-
----
-
-## 🛰️ 25 Observation Archives & Local Paths
-
-### Exact Local Storage Path
-The 25 primary Level-2 `.tgz` observation archives are stored locally at:
+Open your browser at:
 ```text
-D:\ISROtrial\Polix_L2_full_archive\data_raw\
+http://127.0.0.1:5173/
 ```
 
-### Observation Inventory
-1. **15 C24 Blank-Sky Observations** (Instrument & background modulation baselines):
-   - `X01_POL_C24_0001_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0002_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0007_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0008_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0009_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0010_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0014_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0015_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0018_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0019_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0020_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0021_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0022_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0023_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0024_2024_L2_V1P1.tgz`
-   - `X01_POL_C24_0026_2024_L2_V1P1.tgz`
-2. **10 Source Observations** (Astrophysical targets):
-   - `X01_POL_G01_0002_2024_L2_V1P1.tgz` (Crab Nebula / Pulsar)
-   - `X01_POL_G01_0003_2024_L2_V1P1.tgz`
-   - `X01_POL_G01_0004_2024_L2_V1P1.tgz`
-   - `X01_POL_G01_0005_2024_L2_V1P1.tgz`
-   - `X01_POL_G01_0006_2024_L2_V1P1.tgz`
-   - `X01_POL_P01_0005_2024_L2_V1P1.tgz` (Sco X-1)
-   - `X01_POL_T24_0001_2024_L2_V1P1.tgz`
-   - `X01_POL_T24_0002_2024_L2_V1P1.tgz`
-   - `X01_POL_T24_0007_2024_L2_V1P1.tgz`
+---
+
+## 📥 Supported Inputs
+
+1. **Compressed POLIX Level-2 Archives**:
+   - Formats: `.zip`, `.tgz`, `.tar.gz`, `.tar`
+   - Accepts single-observation or multi-observation packages containing standard POLIX Level-2 FITS files (Tier 1A, Tier 1B, and Tier 2 products).
+2. **Precomputed Feature Tables**:
+   - Formats: Compatible Matrix-C `.csv` files containing the 15 standardized engineered features.
 
 ---
 
-## 📦 Additional Test Packages (Outside the 25 Raw Files)
+## 🔬 Scientific Workflow
 
-For regression testing without unpacking all 25 raw archives, convenience zip packages are located at:
-
-1. **`D:\polix_xai_webapp\blank_sky_test.zip`** (24.3 MB):
-   - Contains 2 blank-sky observations (`C24_0001` and `C24_0002`) for fast smoke testing of the extraction pipeline.
-2. **`D:\polix_xai_webapp\multi_obs_test.zip`** (118 MB):
-   - Contains a multi-target subset of observations for batch analysis testing.
-3. **`D:\polix_xai_webapp\all_25_test.zip`** (474 MB):
-   - All 25 observations packaged into a single composite zip upload.
-   *(Note: Excluded from Git tracking via `.gitignore` to stay well within GitHub repository limits).*
+```text
+POLIX Level-2 Archive (.tgz / .zip)
+                │
+                ▼
+      Feature Extraction
+   (15-Feature Matrix-C Pipeline)
+                │
+                ▼
+       Unsupervised ML Screening
+   (Isolation Forest + PCA + K-Means)
+                │
+                ▼
+       Explainable AI (XAI)
+   (Model-Specific Feature Attribution)
+                │
+                ▼
+      WeightedRoll Analysis
+   (Sinusoidal Modulation Curve Fitting)
+                │
+                ▼
+  Empirical Blank-Sky Comparison
+   (Background-Relative Q/U Diagnostics)
+                │
+                ▼
+    Physical Polarimetry Diagnostics
+   (Modulation Factor & PD Sensitivity Proxy)
+                │
+                ▼
+     Combined Scientific Report
+ (Interactive UI + Diagnostic Plots + CSV Export)
+```
 
 ---
 
-## 🔬 Scientific Boundaries
+## 📊 Dataset Used During Development
 
-1. **Unsupervised Screening**: The 15-feature Matrix-C model prioritizes observations for human inspection relative to the archive baseline; it does not claim automated astrophysical anomaly discovery.
-2. **Harmonic Fit Separation**: WeightedRoll modulation curve analysis ($y(\phi) = C + Q\cos(2\phi) + U\sin(2\phi)$) is kept strictly decoupled from unsupervised screening.
-3. **Calibrated Polarimetry**: Polarization Degree (PD) proxy sensitivity estimates are diagnostic indicators only; final polarization detection and official Sky Position Angle (PA) require expert background subtraction and ISRO instrument team calibration.
+The framework was developed and validated on **25 XPoSat POLIX Level-2 observations**:
+
+| Observation Type | Count | Description |
+| :--- | :---: | :--- |
+| **Blank-sky observations** | 15 | Empirical reference background observations (C24 cycle) |
+| **Source observations** | 10 | Target observations (Crab Nebula/Pulsar, Sco X-1, etc.) |
+| **Total** | **25** | Complete study archive |
+
+*Note: Raw observational FITS datasets are archived by ISRO/RRI and are not hosted in this repository.*
+
+---
+
+## 🧠 Explainable AI Strategy
+
+This project intentionally avoids black-box post-hoc explainers like SHAP, which can be computationally prohibitive on astronomical arrays and lack direct coupling with unsupervised anomaly models.
+
+Instead, the XAI layer directly decomposes the model's geometry for each observation:
+1. **PCA Projection Separation**: Measures how features shift the observation along dominant variance axes.
+2. **K-Means Centroid Distance**: Quantifies feature-wise squared deviations from the assigned cluster center.
+3. **Isolation Forest Occlusion**: Evaluates anomaly score shift when individual features are neutralized.
+4. **Standardized Deviation**: Archive-relative Z-score abnormality.
+
+The composite heuristic ranking highlights which physical features drove the screening decision without modifying or retraining the pipeline.
+
+---
+
+## ⚠️ Scientific Limitations & Boundaries
+
+The application enforces strict diagnostic boundaries:
+- **No Automated Astrophysical Discovery**: The system prioritizes candidates for inspection relative to archive baselines; it does not confirm physical anomalies.
+- **Decoupled Architecture**: WeightedRoll modulation curve analysis is kept independent from unsupervised feature screening.
+- **Sensitivity Proxies, Not Calibrated PD/PA**: Displayed values are diagnostic sensitivity proxies computed under assumed modulation scenarios. They do not constitute official background-subtracted polarization degrees or sky position angles, which remain the purview of the ISRO instrument science team.
+
+---
+
+## 🛠️ Technologies Used
+
+### Backend
+- **Python 3.10+**
+- **Flask** (REST API)
+- **Astropy** (FITS parsing and astronomical headers)
+- **NumPy & Pandas** (Vectorized scientific computing and data wrangling)
+- **Scikit-learn** (PCA, K-Means, Isolation Forest)
+- **Matplotlib** (Scientific plot generation)
+- **Joblib** (Model serialization)
+
+### Frontend
+- **Vue 3** (Single-File Components)
+- **TypeScript** (Strict type safety)
+- **Vite** (Next-generation frontend tooling)
+- **Pinia** (Centralized reactive state store)
+- **Vue Router 4** (Client-side routing)
+- **Apache ECharts** (Interactive scientific visualization)
+- **Lucide Icons** (Clean iconography)
+
+---
+
+## 📋 Project Status
+
+**Current Status: Completed (Version 2.0)**
+
+- Feature Engineering & FITS Extraction ✅
+- Unsupervised Consensus Machine Learning ✅
+- Model-Specific Explainable AI (No SHAP) ✅
+- Physical Polarimetry Diagnostics & Modulation Fitting ✅
+- Modern Vue 3 + TypeScript Web Portal ✅
+- RESTful Flask API Backend ✅
+- Full 25-Observation Validation & Seed Stability Audit ✅
+- Single-Navbar Layout & Clean Repository Architecture ✅
+
+---
+
+## 📜 License
+
+This repository is maintained for academic and scientific research purposes.
