@@ -41,8 +41,6 @@ polix_xai_webapp/
 │   ├── source_material/        # Official POLIX handbooks and payload references
 │   └── tools/                  # Asset preparation scripts
 │
-├── start_api.ps1               # Quickstart script for backend API
-├── start_frontend.ps1          # Quickstart script for Vue frontend
 ├── README.md                   # Project overview & documentation
 └── .gitignore                  # Git ignore rules for node, python, & large archives
 ```
@@ -52,15 +50,10 @@ polix_xai_webapp/
 ## 🚀 Quickstart
 
 ### Prerequisites
-- Python 3.10+ (with scientific libraries)
+- Python 3.10+
 - Node.js 18+ and `pnpm` (or `npm`)
 
 ### 1. Start Scientific Backend API
-From PowerShell in the project root:
-```powershell
-.\start_api.ps1
-```
-Or manually:
 ```powershell
 cd backend
 pip install -r requirements.txt
@@ -69,11 +62,7 @@ python app.py
 The API server starts at `http://127.0.0.1:5001` (Health check: `http://127.0.0.1:5001/api/health`).
 
 ### 2. Start Frontend Application
-In a second PowerShell terminal:
-```powershell
-.\start_frontend.ps1
-```
-Or manually:
+In a separate terminal:
 ```powershell
 cd frontend
 pnpm install
