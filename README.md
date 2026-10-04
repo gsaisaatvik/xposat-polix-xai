@@ -33,7 +33,7 @@ polix_xai_webapp/
 │   ├── runtime/                # Transient session uploads and generated plot storage
 │   └── requirements.txt        # Backend dependencies
 │
-├── docs/                       # Research documentation, audits, and literature
+├── docs/                       # Research documentation, audits, and literature (local)
 │   ├── guides/                 # Implementation plan, content map, run & test guide
 │   ├── research_paper_ieee/    # Research paper draft, figures, and supplementary scripts
 │   ├── reviews_and_presentations/ # PS1 Review presentations and reference reports

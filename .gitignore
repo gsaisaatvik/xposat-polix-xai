@@ -41,6 +41,7 @@ all_25_test/
 tmp/
 .codex_tmp/
 web_v2/
+docs/
 
 # Environment and OS
 .env

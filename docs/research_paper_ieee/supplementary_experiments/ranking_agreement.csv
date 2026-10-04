@@ -1,4 +1,0 @@
-metric_left,metric_right,spearman_rho,two_sided_pvalue,n_observations
-PCA distance,KMeans centroid distance,0.15579919503434767,0.4570739402913735,25
-PCA distance,Isolation Forest anomaly score,0.8946153846153846,1.636483503546325e-09,25
-KMeans centroid distance,Isolation Forest anomaly score,0.18657434467076198,0.3718627413637672,25
